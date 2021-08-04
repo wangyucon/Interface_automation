@@ -1,0 +1,31 @@
+-
+  name: 获取首页帖子列表
+  request:
+    method: get
+    url: "http://47.114.189.49:8000/post"
+    data: {'pageNum': 1,'pageSize': 10}
+    headers:
+      token: 1  #不需要token
+  assert_code: 0  #0代表断言值相等 1代表断言被包含关系
+  vaildate:
+    eq:
+      "mainTitle": "100"
+-
+  name: 登录接口
+  request:
+    method: post
+    url: "http://47.114.189.49:8000/sso/login/password"
+    data: {"password": "E10ADC3949BA59ABBE56E057F20F883E","phone": "18800000020","platform": "Test"}
+    headers:
+      token: 1  #不需要token
+  assert_code: 1  #0代表断言值相等 1代表断言被包含关系
+  vaildate:
+    eq:
+      "signature": "南风知我意"
+
+
+
+
+
+
+

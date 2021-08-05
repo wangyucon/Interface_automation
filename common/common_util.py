@@ -38,7 +38,7 @@ def read_testcase_yaml(yaml_name):
     :return:
 
     """
-    with open(get_project_path()+'\\testcase\\'+yaml_name, 'r', encoding='utf-8') as f:
+    with open(get_project_path()+'/testcase/'+yaml_name, 'r', encoding='utf-8') as f:
         result = yaml.load(f.read(), Loader=yaml.FullLoader)
         return result
 

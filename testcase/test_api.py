@@ -1,4 +1,4 @@
-
+import allure
 import pytest
 
 from common.common_util import write_extract_yaml, read_extract_yaml, get_testcase_list
@@ -7,6 +7,7 @@ from common.assert_util import Assertions
 class TestApi:
 
     @pytest.mark.parametrize('args',get_testcase_list())
+    @allure.feature("这是一条测试用例")
     def test_api(self, args):
         '''遍历每一个yaml测试用例集'''
 

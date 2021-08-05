@@ -15,7 +15,7 @@ def read_extract_yaml(yaml_name):
     :return:
 
     """
-    with open(get_project_path() + '\\'+yaml_name, 'r', encoding='utf-8') as f:
+    with open(get_project_path() + '/'+yaml_name, 'r', encoding='utf-8') as f:
         result = yaml.load(f.read(), Loader=yaml.FullLoader)
     return result
 
@@ -27,7 +27,7 @@ def write_extract_yaml(extract_dict):
     :return:
 
     """
-    with open(get_project_path() + '\extract.yaml', 'w', encoding='utf-8') as f:
+    with open(get_project_path() + '/extract.yaml', 'w', encoding='utf-8') as f:
         yaml.dump(data={'authorization': extract_dict}, stream=f, allow_unicode=True)
 
 
@@ -48,7 +48,7 @@ def get_testcase_list():
 
     resut = []
     list_new = []
-    for yaml_file in fileNames(get_project_path()+'\\testcase\\', '.yaml'):
+    for yaml_file in fileNames(get_project_path()+'/testcase/', '.yaml'):
         resut.append(yaml_file)
     for i in range(0, len(resut)):
         a = read_testcase_yaml(resut[i])

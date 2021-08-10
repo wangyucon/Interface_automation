@@ -1,6 +1,8 @@
 import json
+import pytest
 
 from common.common_util import get_json_value_by_key
+from common.logger import Log
 
 
 class Assertions:
@@ -56,6 +58,7 @@ class Assertions:
 
         return expected_msg_list
 
+    @pytest.mark.usefixtures()
     def assert_handle(self,assert_code,eq,res):
         """
         根据assert_code进行不同的断言处理
@@ -65,12 +68,14 @@ class Assertions:
         :return:
 
         """
+        log = Log()
         try:
             if assert_code == 0:
                 expected_msg_list = self.get_expected_msg_list(eq)
 
                 for i in expected_msg_list:
                     self.assert_in_text(res.text, i)
+                    log.info("断言结果：pass (%s in Response Body)"%i)
 
             elif assert_code == 1:
                 list_2 = Assertions().get_body_msg_list(eq, res)
@@ -83,9 +88,10 @@ class Assertions:
 
                 for key, value in dict_1.items():
                     self.assert_text(key, value)
+                    log.info("断言结果：pass (%s == %s)" % (key,value))
         except AssertionError:
-            print("断言失败，请查看用例内断言数据")
+            log.warning("断言失败，请查看用例内断言数据")
         except Exception as ex:
-            print("出现如下异常:%s" % ex)
+            log.warning("出现如下异常:%s" % ex)
 
 

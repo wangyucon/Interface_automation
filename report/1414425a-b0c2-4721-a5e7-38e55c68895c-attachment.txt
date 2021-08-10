@@ -1,0 +1,4 @@
+INFO     root:logger.py:40 caseName: <登录接口>
+DEBUG    urllib3.connectionpool:connectionpool.py:231 Starting new HTTP connection (1): 47.114.189.49:8000
+DEBUG    urllib3.connectionpool:connectionpool.py:461 http://47.114.189.49:8000 "POST /sso/login/password HTTP/1.1" 200 None
+INFO     root:logger.py:40 断言结果：pass (南风知我意 == 南风知我意)

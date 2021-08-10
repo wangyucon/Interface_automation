@@ -1,14 +1,17 @@
-import allure
+
 import pytest
 
 from common.common_util import write_extract_yaml, read_extract_yaml, get_testcase_list
+from common.logger import Log
 from common.request_util import RequestUtil
 from common.assert_util import Assertions
 class TestApi:
 
     @pytest.mark.parametrize('args',get_testcase_list())
-    @allure.feature(get_testcase_list()['name'])
+    @pytest.mark.usefixtures('set_up')
     def test_api(self, args):
+        log = Log()
+        log.info("caseName: <%s>" % args['name'])
         '''遍历每一个yaml测试用例集'''
 
         #如果接口不需要token and 参数为空
@@ -49,6 +52,7 @@ class TestApi:
                 #判断使用哪一种断言方式（0代表断言值相等 1代表断言被包含关系）
                 Assertions().assert_handle(args['assert_code'],args['vaildate']['eq'],res)
         except AttributeError as e:
-            print("出现如下异常:%s" % e)
+            log.warning("出现如下异常:%s" % e)
+
 
 

@@ -1,0 +1,7 @@
+INFO     root:logger.py:40 caseName: <获取个人信息接口>
+DEBUG    urllib3.connectionpool:connectionpool.py:231 Starting new HTTP connection (1): 47.114.189.49:8000
+DEBUG    urllib3.connectionpool:connectionpool.py:461 http://47.114.189.49:8000 "GET /member/info HTTP/1.1" 200 None
+INFO     root:logger.py:40 断言结果：pass (南风知我意 == 南风知我意)
+INFO     root:logger.py:40 断言结果：pass (0.0 == 0.0)
+INFO     root:logger.py:40 断言结果：pass (2000 == 2000)
+INFO     root:logger.py:40 --------接口自动化测试结束------------

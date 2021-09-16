@@ -51,7 +51,9 @@ class Assertions:
 
         """
         expected_msg_list = []
-        assert_list = list(vaildate)
+        # 将断言dict的keys转换成list
+        assert_list = list(vaildate.keys())
+
         for i in assert_list:
             expected_msg = " ".join('%s' % id for id in get_json_value_by_key(json.loads(res.text), i))
             expected_msg_list.append(expected_msg)

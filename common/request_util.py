@@ -1,12 +1,14 @@
 import requests
 
+from common.common_util import read_config_yaml
+
 
 class RequestUtil:
 
     def __init__(self):
 
         #初始化基本路径
-        #self.base_url = read_config_yaml('url','base_url')
+        self.base_url = read_config_yaml("config.yaml")['test_url']
         #初始化请求数据（如果不初始化这个变量，则get,post,delete,put方法传参数时会报错）
         self.last_data = {}
 
@@ -69,20 +71,21 @@ class RequestUtil:
         :return:
 
         """
+
         try:
             self.last_data = str(method).lower()
 
             if self.last_data == 'get':
-                res = self.get(url,headers,data)
+                res = self.get(self.base_url+url,headers,data)
                 return res
             elif self.last_data == 'post':
-                res = self.post(url,headers,data)
+                res = self.post(self.base_url+url,headers,data)
                 return res
             elif self.last_data == 'delete':
-                res = self.delete(url,headers,data)
+                res = self.delete(self.base_url+url,headers,data)
                 return res
             elif self.last_data == 'put':
-                res = self.put(url, headers, data)
+                res = self.put(self.base_url+url, headers, data)
                 return res
         except AttributeError:
             print("找不到对应的对象的属性")

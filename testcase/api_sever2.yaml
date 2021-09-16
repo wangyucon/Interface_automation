@@ -1,14 +1,15 @@
 -
-  name: 获取个人信息接口
+  name: 展示客户列表
   request:
     method: get
-    url: "http://47.114.189.49:8000/member/info"
-    data:
+    url: "/st-order-admin/customerList"
+    data: {'current': 1,'size': 10}
+    data_replace: 1
     headers:
-      token: 0  #需要token
-  assert_code: 1  #0:断言被包含关系 1:断言相等关系
+      token: 0  #1 不需要token 0 需要传入token
+  variable: 1     # 0:存变量  1:
+  value: "id"
+  assert_code: 0  #0:代表断言值相等 1:代表断言被包含关系
   vaildate:
     eq:
-      "signature": "南风知我意"
-      "money": 0.00
-      "showTime": 2000
+      "id": "31"

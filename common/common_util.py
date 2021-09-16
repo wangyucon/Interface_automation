@@ -2,6 +2,7 @@ import os
 
 import yaml
 
+
 def get_project_path():
     '''获取当前项目路径'''
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,15 +21,50 @@ def read_extract_yaml(yaml_name):
     return result
 
 
+def read_variable_yaml(yaml_name):
+    """
+    读取临时变量yaml文件
+    :param yaml_name:传入yaml文件名
+    :return:
+
+    """
+    with open(get_project_path() + '/'+yaml_name, 'r', encoding='utf-8') as f:
+        result = yaml.load(f.read(), Loader=yaml.FullLoader)
+    return result
+
+
+def read_config_yaml(yaml_name):
+    """
+    读取系统配置yaml文件
+    :param yaml_name:传入yaml文件名
+    :return:
+
+    """
+    with open(get_project_path() + '/'+yaml_name, 'r', encoding='utf-8') as f:
+        result = yaml.load(f.read(), Loader=yaml.FullLoader)
+    return result
+
+
 def write_extract_yaml(extract_dict):
     """
     将临时变量写入yaml文件
-    :param yaml_name:传入临时变量名
+    :param extract_dict:传入变量值
     :return:
 
     """
     with open(get_project_path() + '/extract.yaml', 'w', encoding='utf-8') as f:
         yaml.dump(data={'authorization': extract_dict}, stream=f, allow_unicode=True)
+
+
+def write_variable_yaml(variable_dict):
+    """
+    将临时变量写入yaml文件
+    :param variable_dict:传入变量值
+    :return:
+
+    """
+    with open(get_project_path() + '/variable.yaml', 'w', encoding='utf-8') as f:
+        yaml.dump(variable_dict, stream=f, allow_unicode=True)
 
 
 def read_testcase_yaml(yaml_name):
@@ -79,7 +115,7 @@ def fileNames(root, suffix=None):
 def get_json_value_by_key(in_json, target_key, results=None):
     """
     根据key值读取对应的value值
-    :param in_json:传入的json
+    :param in_json: 传入json
     :param target_key: 目标key值
     :param results:
     :return:
@@ -97,7 +133,6 @@ def get_json_value_by_key(in_json, target_key, results=None):
         for data in in_json:  # 循环当前列表
             get_json_value_by_key(data, target_key, results=results)  # 回归列表的当前的元素
     return results
-
 
 
 

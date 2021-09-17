@@ -1,15 +1,18 @@
 -
-  name: 展示客户列表
+  name: 禁用-启用 客户集团信息
   request:
-    method: get
-    url: "/st-order-admin/customerList"
-    data: {'current': 1,'size': 10}
-    data_replace: 1
+    method: post
+    up:
+    url: "/st-order-admin/group/enable"
+    data: {"id": 0 ,"isEnabled": 0}
+    data_replace: 0     # 0:需要传递变量  1:无需传入变量
+    repalce: "id"       # 需要替换的变量字段
     headers:
-      token: 0  #1 不需要token 0 需要传入token
-  variable: 1     # 0:存变量  1:
-  value: "id"
-  assert_code: 0  #0:代表断言值相等 1:代表断言被包含关系
-  vaildate:
+      token: 0          # 0:需要传入token 1:不需要传入token
+  variable: 1           # 0:存变量  1:
+  db_operate: 1         # 取变量是否需要关联数据库  0:需要 1:不需要
+  res_operate: 1        # 取变量是否需要关联response  0:需要 1:不需要
+  assert_code: 1        # 0:断言被包含关系 1:断言值相等
+  vaildate:             # 断言体
     eq:
-      "id": "31"
+      "code": "0"

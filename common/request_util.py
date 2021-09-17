@@ -24,6 +24,18 @@ class RequestUtil:
         res = requests.get(url=url,headers=headers,params=data)
         return res
 
+    def get_up(self,url,up,headers,data):
+        """
+        Get请求
+        :param url:
+        :param data:
+        :param header:
+        :return:
+
+        """
+        res = requests.get(url=url+up,headers=headers,params=data)
+        return res
+
     def post(self,url,headers,data):
         """
         Post请求
@@ -61,7 +73,7 @@ class RequestUtil:
         return res
 
 
-    def send_request(self,method,url,data=None,headers=None):
+    def send_request(self,method,url,data=None,up=None,headers=None):
         """
         请求封装
         :param method:请求方法
@@ -77,6 +89,9 @@ class RequestUtil:
 
             if self.last_data == 'get':
                 res = self.get(self.base_url+url,headers,data)
+                return res
+            if self.last_data == 'get_up':
+                res = self.get(self.base_url+url+up,headers,data)
                 return res
             elif self.last_data == 'post':
                 res = self.post(self.base_url+url,headers,data)

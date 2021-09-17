@@ -36,7 +36,7 @@ class DB:
         :return:
 
         """
-        result = self.query("select {} from {} where {}='{}'".format(field,tb_name,term,name))
+        result = self.query("select {} from {} where {}='{}' ORDER BY id desc LIMIT 1".format(field,tb_name,term,name))
         return result
 
     # name

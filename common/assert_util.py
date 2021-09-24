@@ -71,29 +71,29 @@ class Assertions:
 
         """
         log = Log()
-        try:
-            if assert_code == 0:
-                expected_msg_list = self.get_expected_msg_list(eq)
 
-                for i in expected_msg_list:
-                    self.assert_in_text(res.text, i)
-                    log.info("断言结果：pass (%s in Response Body)"%i)
+        if assert_code == 0:
+            expected_msg_list = self.get_expected_msg_list(eq)
 
-            elif assert_code == 1:
-                list_2 = Assertions().get_body_msg_list(eq, res)
-                list_1 = Assertions().get_expected_msg_list(eq)
+            for i in expected_msg_list:
+                self.assert_in_text(res.text, i)
+                log.info("断言结果：pass (%s in Response Body)"%i)
 
-                dict_1 = {}
-                """ zip打包用法,同时遍历两个list """
-                for symbol, digit in zip(list_1, list_2):
-                    dict_1[symbol] = digit
+        elif assert_code == 1:
+            list_2 = Assertions().get_body_msg_list(eq, res)
+            list_1 = Assertions().get_expected_msg_list(eq)
 
-                for key, value in dict_1.items():
-                    self.assert_text(key, value)
-                    log.info("断言结果：pass (%s == %s)" % (key,value))
-        except AssertionError:
-            log.warning("断言失败，请查看用例内断言数据")
-        except Exception as ex:
-            log.warning("出现如下异常:%s" % ex)
+            dict_1 = {}
+            """ zip打包用法,同时遍历两个list """
+            for symbol, digit in zip(list_1, list_2):
+                dict_1[symbol] = digit
+
+            for key, value in dict_1.items():
+                self.assert_text(key, value)
+                log.info("断言结果：pass (%s == %s)" % (key,value))
+        # except AssertionError:
+        #     log.warning("断言失败，请查看用例内断言数据")
+        # except Exception as ex:
+        #     log.warning("出现如下异常:%s" % ex)
 
 

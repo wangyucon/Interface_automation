@@ -48,6 +48,18 @@ class RequestUtil:
         res = requests.post(url=url,headers=headers,json=data)
         return res
 
+    def post_up(self,url,up,headers,data):
+        """
+        Post请求
+        :param url:
+        :param data:
+        :param header:
+        :return:
+
+        """
+        res = requests.post(url=url+up,headers=headers,json=data)
+        return res
+
     def delete(self,url,headers,data):
         """
         Delete请求
@@ -90,11 +102,14 @@ class RequestUtil:
             if self.last_data == 'get':
                 res = self.get(self.base_url+url,headers,data)
                 return res
-            if self.last_data == 'get_up':
+            elif self.last_data == 'get_up':
                 res = self.get(self.base_url+url+up,headers,data)
                 return res
             elif self.last_data == 'post':
                 res = self.post(self.base_url+url,headers,data)
+                return res
+            elif self.last_data == 'post_up':
+                res = self.post(self.base_url+url+up,headers,data)
                 return res
             elif self.last_data == 'delete':
                 res = self.delete(self.base_url+url,headers,data)

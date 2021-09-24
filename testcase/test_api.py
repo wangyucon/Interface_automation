@@ -89,14 +89,18 @@ class TestApi:
             #如果当前接口不需要token and 参数不为空 and 非get_up请求
             elif args['request']['headers']['token'] == 1 and args['request']['data'] is not None and args['request']['up'] is None:
 
-                # 判断当前接口是否需要传递变量
+                #判断当前接口是否需要传递变量
                 if args['request']['data_replace'] == 0:
-                    args['request']['data'][args['request']['repalce']] = read_variable_yaml('variable.yaml')
+                    for i in args['request']['repalce']:
+                        for key in read_variable_yaml('variable.yaml'):
+
+                            if i == key:
+                                args['request']['data'][key] = read_variable_yaml('variable.yaml')[key]
                     res = RequestUtil().send_request(args['request']['method'], args['request']['url'],
-                                                     args['request']['data'])
+                                                     args['request']['data'],
+                                                     headers=read_extract_yaml('extract.yaml'))
                 else:
-                    res = RequestUtil().send_request(args['request']['method'], args['request']['url'],
-                                                     args['request']['data'])
+                    res = RequestUtil().send_request(args['request']['method'], args['request']['url'],args['request']['data'],headers=read_extract_yaml('extract.yaml'))
 
                 # 若接口调用存在问题则主动抛出异常
                 if json.loads(res.text)["code"] == 1:
@@ -117,10 +121,10 @@ class TestApi:
                     # 是否通过数据库来提取变量
                     if args['db_operate'] == 0:
                         variable_db = \
-                            DB(args['st_name']).check_user(args['value'], args['tb_name'], args['term'],
+                            DB(args['st_name']).check_user(args['field_db'], args['tb_name'], args['term'],
                                                            args['t_value'])[
-                                0][args['value']]
-                        variable_dict[args['value']] = variable_db
+                                0][args['field_db']]
+                        variable_dict[args['field']] = variable_db
 
                     # 是否通过response来提取变量
                     if args['res_operate'] == 0:
@@ -142,15 +146,15 @@ class TestApi:
 
                             if i == key:
                                 args['request']['data'][key] = read_variable_yaml('variable.yaml')[key]
-                        res = RequestUtil().send_request(args['request']['method'], args['request']['url'],
+                    res = RequestUtil().send_request(args['request']['method'], args['request']['url'],
                                                      args['request']['data'],
                                                      headers=read_extract_yaml('extract.yaml'))
                 else:
                     res = RequestUtil().send_request(args['request']['method'], args['request']['url'],args['request']['data'],headers=read_extract_yaml('extract.yaml'))
 
                 #若接口调用存在问题则主动抛出异常
-                if json.loads(res.text)["code"] == 1:
-                    raise Exception("")
+                # if json.loads(res.text)["code"] == 1:
+                #     raise Exception("")
 
                 #断言方式判断
                 Assertions().assert_handle(args['assert_code'],args['vaildate']['eq'],res)
@@ -162,10 +166,10 @@ class TestApi:
                     # 是否通过数据库来提取变量
                     if args['db_operate'] == 0:
                         variable_db = \
-                            DB(args['st_name']).check_user(args['value'], args['tb_name'], args['term'],
+                            DB(args['st_name']).check_user(args['field_db'], args['tb_name'], args['term'],
                                                            args['t_value'])[
-                                0][args['value']]
-                        variable_dict[args['value']] = variable_db
+                                0][args['field_db']]
+                        variable_dict[args['field']] = variable_db
 
                     # 是否通过response来提取变量
                     if args['res_operate'] == 0:
@@ -187,7 +191,7 @@ class TestApi:
 
                             if i == key:
                                 args['request']['up'] = str(read_variable_yaml('variable.yaml')[key])
-                        res = RequestUtil().send_request(args['request']['method'], args['request']['url'], None,
+                    res = RequestUtil().send_request(args['request']['method'], args['request']['url'], None,
                                                          args['request']['up'],
                                                          headers=read_extract_yaml('extract.yaml'))
 
@@ -210,8 +214,8 @@ class TestApi:
                         variable_db = \
                             DB(args['st_name']).check_user(args['value'], args['tb_name'], args['term'],
                                                            args['t_value'])[
-                                0][args['value']]
-                        variable_dict[args['value']] = variable_db
+                                0][args['field_db']]
+                        variable_dict[args['field']] = variable_db
 
                     # 是否通过response来提取变量
                     if args['res_operate'] == 0:
@@ -221,6 +225,7 @@ class TestApi:
                     write_variable_yaml(variable_dict)
                 else:
                     pass
+
 
 
         except AttributeError as e:

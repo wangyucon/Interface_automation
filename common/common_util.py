@@ -63,7 +63,7 @@ def write_variable_yaml(variable_dict):
     :return:
 
     """
-    with open(get_project_path() + '/variable.yaml', 'w', encoding='utf-8') as f:
+    with open(get_project_path() + '/variable.yaml', 'a', encoding='utf-8') as f:
         yaml.dump(variable_dict, stream=f, allow_unicode=True)
 
 
@@ -77,6 +77,17 @@ def read_testcase_yaml(yaml_name):
     with open(get_project_path()+'/testcase/'+yaml_name, 'r', encoding='utf-8') as f:
         result = yaml.load(f.read(), Loader=yaml.FullLoader)
         return result
+
+
+def clean_variable_yaml(variable_dict):
+    """
+    将临时变量写入yaml文件
+    :param variable_dict:传入变量值
+    :return:
+
+    """
+    with open(get_project_path() + '/variable.yaml', 'w', encoding='utf-8') as f:
+        yaml.dump(variable_dict, stream=f, allow_unicode=True)
 
 
 def get_testcase_list():

@@ -10,7 +10,7 @@ def set_up():
     log.info("--------接口自动化测试开始------------")
     yield
     log.info("--------接口自动化测试结束------------")
-    # clean_variable_yaml({"variable":"variable_value"})
+    clean_variable_yaml({"variable":"variable_value"})
 
 
 @pytest.fixture(scope="function")
